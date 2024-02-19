@@ -1,7 +1,3 @@
-h1 {
-    color: aqua;
-}
-
 .inputs {
     display:flex;
     align-items: center;
@@ -16,13 +12,29 @@ h1 {
     align-items: center;
 }
 
+@media screen and (max-width: 1127px) {
+    .onScreenKeyboard {
+       align-items: stretch;
+    }
+}
+
 .keyBoardRow {
     display: flex;
     flex-direction: row;
 }
 
 .keyBoardKey {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    margin: 5px;
+    background-color: #818384;
     color: white;
+    border: 1px solid black;
+    cursor: pointer;
+    font-size: xxx-large;
 }
 
 .letters {
@@ -39,6 +51,37 @@ h1 {
     align-items: center;
 }
 
+.backspaceKey {
+    width: 160px;
+}
+
+.enterKey {
+    width: 160px;
+}
+
 .letter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    margin: 5px;
+    background-color: #ffffff;
+    color: black;
+    font-size: xxx-large;
+}
+
+.right {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.contained {
+    background-color: #bcd33c;
+    color: white;
+}
+
+.notContained {
+    background-color: #444444;
     color: white;
 }
