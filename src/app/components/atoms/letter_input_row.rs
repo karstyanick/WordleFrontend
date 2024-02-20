@@ -5,7 +5,7 @@ use gloo::console::{log};
 use web_sys::{HtmlElement, HtmlInputElement};
 use yew::prelude::*;
 
-use crate::app::check_input_value_against_word;
+use crate::app::{check_input_value_against_word, GuessStatus};
 
 use self::_Props::word_to_guess;
 
@@ -35,13 +35,13 @@ fn build_inputs(word_length: usize, row: usize, guessed_word: String, guessed: b
         let mut class = "";
         
         if(guessed){
-            let letter_status = check_input_value_against_word(&guessed_word, word.clone());
+            let guess_status = check_input_value_against_word(&guessed_word, word.clone());
 
-            if(letter_status[n].contained && letter_status[n].right_position){
+            if(guess_status[n] == GuessStatus::Right){
                 class = "right";
-            }else if(letter_status[n].contained && !letter_status[n].right_position){
+            }else if(guess_status[n] == GuessStatus::Contained){
                 class = "contained";
-            }else if(!letter_status[n].contained){
+            }else if(guess_status[n] == GuessStatus::NotContained){
                 class = "notContained";
             }
         }
