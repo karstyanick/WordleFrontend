@@ -117,11 +117,16 @@ pub fn app() -> Html {
                     }).collect::<Vec<InputState>>());
     
                     let guess_status = check_input_value_against_word(submitted_word, (*chosen_word).to_owned());
+
+                    if(submitted_word == *chosen_word){
+                        log!("You win!");
+                        return
+                    }
     
                     keyboard_row_one.set(keyboard_row_one.iter().map(|key| {
                         let mut key = key.clone();
-                        submitted_word.chars().enumerate().for_each(|(index, c)| {
-                            if (key.letter == c){
+                        submitted_word.chars().enumerate().for_each(|(index, character)| {
+                            if (key.letter == character){
                                 if (key.guess_status == GuessStatus::NotGuessed){
                                     key = KeyboardLetter {letter: key.letter, guess_status: guess_status[index].clone()}
                                 }else{
@@ -136,8 +141,8 @@ pub fn app() -> Html {
     
                     keyboard_row_two.set(keyboard_row_two.iter().map(|key| {
                         let mut key = key.clone();
-                        submitted_word.chars().enumerate().for_each(|(index, c)| {
-                            if (key.letter == c){
+                        submitted_word.chars().enumerate().for_each(|(index, character)| {
+                            if (key.letter == character){
                                 if (key.guess_status == GuessStatus::NotGuessed){
                                     key = KeyboardLetter {letter: key.letter, guess_status: guess_status[index].clone()}
                                 }else{
@@ -250,6 +255,11 @@ pub fn app() -> Html {
                 }).collect::<Vec<InputState>>());
 
                 let guess_status = check_input_value_against_word(submitted_word, (*chosen_word).to_owned());
+
+                if(submitted_word == *chosen_word){
+                    log!("You win!");
+                    return
+                }
 
                 keyboard_row_one.set(keyboard_row_one.iter().map(|key| {
                     let mut key = key.clone();
