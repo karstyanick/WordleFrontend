@@ -59,7 +59,7 @@ pub fn app() -> Html {
         let current_letter_column = current_letter_column.clone();
         let word_length = word_length.clone();
 
-        Callback::from(move |event: MouseEvent| {
+        Callback::from(move |event: TouchEvent| {
             let target = event.target().unwrap().unchecked_into::<HtmlElement>();
             let letter = target.text_content().unwrap();
             input_states.set(input_states.to_vec().iter().enumerate().map(|(index, input_state)| {
@@ -219,7 +219,7 @@ pub fn app() -> Html {
         let current_letter_row = current_letter_row.clone();
         let current_letter_column = current_letter_column.clone();
 
-        Callback::from(move |event: MouseEvent| {
+        Callback::from(move |event: TouchEvent| {
             input_states.set(input_states.to_vec().iter().enumerate().map(|(index, input_state)| {
                 let current_row_word = input_state.word.clone();
                 if(*current_letter_row == index && current_row_word.len() > 0){
@@ -242,7 +242,7 @@ pub fn app() -> Html {
         let keyboard_row_one = keyboard_row_one.clone();
         let keyboard_row_two = keyboard_row_two.clone();
         let keyboard_row_three = keyboard_row_three.clone();
-        Callback::from(move |event: MouseEvent| {
+        Callback::from(move |event: TouchEvent| {
             if(input_states[*current_letter_row].word.len() == *word_length){
                 let submitted_word = &input_states[*current_letter_row].word;
                 if(!WORDS.contains(&submitted_word.as_str())){return}
@@ -326,9 +326,9 @@ pub fn app() -> Html {
                 <div class="keyBoardRow">{build_letters(1, keyboard_row_one.clone(), &on_keyboard_click)}</div>
                 <div class="keyBoardRow">{build_letters(2, keyboard_row_two.clone(), &on_keyboard_click)}</div>
                 <div class="keyBoardRow">
-                    <div onclick={&on_enter_click} class="keyBoardKey enterKey">{"ENTER"}</div>
+                    <div ontouchstart={&on_enter_click} class="keyBoardKey enterKey">{"ENTER"}</div>
                     {build_letters(3, keyboard_row_three.clone(), &on_keyboard_click)}
-                    <div onclick={&on_backspace_click} class="keyBoardKey backspaceKey">{"<"}</div>
+                    <div ontouchstart={&on_backspace_click} class="keyBoardKey backspaceKey">{"<"}</div>
                 </div>
             </div>
         </div>
@@ -345,7 +345,7 @@ fn build_inputs(chosen_word: &str, rows: usize, word_length: usize, input_states
     return inputs
 }
 
-fn build_letters(row: usize, letters: UseStateHandle<Vec<KeyboardLetter>>, onclick: &Callback<MouseEvent>) -> Vec<Html>{
+fn build_letters(row: usize, letters: UseStateHandle<Vec<KeyboardLetter>>, onclick: &Callback<TouchEvent>) -> Vec<Html>{
     let mut keyboardRow = Vec::new();
     
     for letter in &*letters {
@@ -359,7 +359,7 @@ fn build_letters(row: usize, letters: UseStateHandle<Vec<KeyboardLetter>>, oncli
             ""
         };
         
-        keyboardRow.push(html!{<div onclick={onclick} class={classes!("keyBoardKey", class)} >{letter.letter}</div>});
+        keyboardRow.push(html!{<div ontouchstart={onclick} class={classes!("keyBoardKey", class)} >{letter.letter}</div>});
     }
     
     return keyboardRow
