@@ -317,20 +317,20 @@ pub fn app() -> Html {
 
     html! {
     <>
-        <div class={stylesheet}>
-            <div class="letters">
-                {build_inputs(*chosen_word, *rows, *word_length, input_states.clone())}
-            </div>
-            
-            <div class="onScreenKeyboard">
-                <div class="keyBoardRow">{build_letters(1, keyboard_row_one.clone(), &on_keyboard_click)}</div>
-                <div class="keyBoardRow">{build_letters(2, keyboard_row_two.clone(), &on_keyboard_click)}</div>
-                <div class="keyBoardRow">
-                    <div ontouchstart={&on_enter_click} class="keyBoardKey enterKey">{"ENTER"}</div>
-                    {build_letters(3, keyboard_row_three.clone(), &on_keyboard_click)}
-                    <div ontouchstart={&on_backspace_click} class="keyBoardKey backspaceKey">{"<"}</div>
+        <div class={stylesheet} style={"display: flex; flex-direction: column; justify-content: center; height: 100%;"}>
+                <div class="letters">
+                    {build_inputs(*chosen_word, *rows, *word_length, input_states.clone())}
                 </div>
-            </div>
+                
+                <div class="onScreenKeyboard">
+                    <div class="keyBoardRow">{build_letters(1, keyboard_row_one.clone(), &on_keyboard_click)}</div>
+                    <div class="keyBoardRow">{build_letters(2, keyboard_row_two.clone(), &on_keyboard_click)}</div>
+                    <div class="keyBoardRow">
+                        <div ontouchstart={&on_enter_click} class="keyBoardKey enterKey">{"ENTER"}</div>
+                        {build_letters(3, keyboard_row_three.clone(), &on_keyboard_click)}
+                        <div ontouchstart={&on_backspace_click} class="keyBoardKey backspaceKey">{"<"}</div>
+                    </div>
+                </div>
         </div>
     </>
     }
